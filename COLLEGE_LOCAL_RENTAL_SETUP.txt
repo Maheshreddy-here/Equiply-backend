@@ -1,0 +1,38 @@
+EQUIPLY: COLLEGE-BASED RENTAL + 10 KM LOCAL PICKUP
+==================================================
+
+WHAT CHANGED
+- Signup now asks for the college/university and the student's campus/usual pickup location.
+- The location button uses browser location permission; latitude/longitude can also be entered manually.
+- Listings from the same college community are visible to one another.
+- Students from different colleges can see/request listings when their saved pickup area is within 10 km of the owner's saved area (straight-line distance calculated from coordinates).
+- The booking controller checks the rule again on the server, so hiding a card in the dashboard is not the only protection.
+- Existing accounts with no college/location are sent to /profile/location after login so they can complete their details.
+- The project keeps one account type, AI-suggested editable rent/deposit, and the existing booking/approval/return flow.
+- Exact coordinates are not displayed in listing cards. The existing general address field is not used for distance calculations.
+
+IMPORTANT DISTANCE NOTE
+The 10 km check compares the coordinates saved to each student's account. Ask students to set these coordinates while at their campus or usual pickup area. Same-college students are allowed by the college-community rule even if their saved coordinates are farther apart; different-college users must be within 10 km.
+
+INSTALL (WINDOWS + VS CODE)
+1. Extract this ZIP into a NEW folder, for example C:\Users\DELL\Downloads\equiply-local.
+2. Open that folder in VS Code (File > Open Folder). The folder you open must contain pom.xml.
+3. Open src/main/resources/application.properties.
+4. Keep your existing MySQL database name/port/username/password. In this ZIP the password is a placeholder, so replace YOUR_MYSQL_PASSWORD with your actual MySQL password. Do not overwrite a working local password with the placeholder.
+5. Confirm MySQL is running and equiply_db exists. Existing tables will be updated automatically because spring.jpa.hibernate.ddl-auto=update is enabled.
+6. In VS Code, open Terminal > New Terminal and run: .\mvnw.cmd spring-boot:run
+7. Wait for Spring Boot to say it started, then open http://localhost:8080.
+8. Create a new account or log in. Existing accounts will be asked to complete college and pickup location once.
+9. Allow location permission while at the campus/usual pickup area. If you deny permission, enter latitude and longitude manually from a map.
+10. Create a listing, then test with a second account. Use the same college name for same-college testing. For nearby-college testing, save the second account's location within 10 km. For out-of-radius testing, use coordinates more than 10 km away and a different college.
+
+MYSQL / DATA NOTES
+- The new fields are college_name, latitude, and longitude on users. Hibernate should add them on startup.
+- Old account records remain in the database; they must complete their location before using the dashboard.
+- Old sample equipment without an owner is hidden from the local listing view; new listings belong to an actual student owner.
+- If your existing working project has any code changes newer than this ZIP, back up that folder first and compare before replacing it.
+
+LIMITATIONS / BEFORE PUBLIC LAUNCH
+- This is a local pickup MVP. College names are user-entered and are not verified by institutional login/email yet.
+- Browser location is supplied by the user/device and can be inaccurate or spoofed. Do not treat it as strong identity verification.
+- For real deployment, use HTTPS, verified college records, and a safer pickup/ID process. Never show a student's exact home address publicly.

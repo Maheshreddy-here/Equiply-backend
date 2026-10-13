@@ -1,0 +1,22 @@
+EQUIPLY: AUTOMATIC PRODUCT IMAGES, MANUAL PHOTO UPLOAD, AND STUDENT PROFILE
+
+WHAT CHANGED
+1. When a student creates an equipment listing and does not upload a photo, Equiply tries to find a matching image using the product name and category through Wikimedia's public API. No API key is required. If no matching image is found or the internet lookup fails, a category-based fallback image is used. The lookup is best-effort and may not always identify the exact product model.
+2. Students can upload their own JPG, PNG, or WEBP photo (maximum 5 MB). An uploaded photo takes priority over the automatic image lookup. Uploaded files are saved in the local ./uploads/equipment folder and served from /uploads/equipment/...
+3. A new My profile page is available at /profile. Students can view and edit full name, mobile number, private address, college, and campus/pickup coordinates. The sign-in email is displayed read-only.
+4. The dashboard includes a My profile link. Existing single-account rental, adjustable suggested pricing, college-based 10 km rules, booking and return routes are retained.
+
+INSTALL
+1. Back up your current project folder.
+2. Extract this ZIP into a new folder and open the folder containing pom.xml in VS Code.
+3. Open src/main/resources/application.properties and set spring.datasource.password to your actual local MySQL password. Keep your existing working database URL/port if it differs.
+4. Run in the VS Code terminal from the folder containing pom.xml:
+   .\mvnw.cmd spring-boot:run
+5. Open http://localhost:8080 and sign in. Use My profile to edit account details. When adding equipment, enter a product name and either upload a photo or leave the upload blank for automatic image lookup.
+
+NOTES
+- Automatic product image lookup requires internet access. It searches public Wikimedia/Wikipedia page thumbnails; it is not guaranteed to find the exact model or product photo.
+- Uploaded photos are stored on the local computer running the app. Back up the uploads folder. For a public production deployment, use persistent file/object storage and add moderation/retention rules.
+- The upload limit is 5 MB per image. Accepted types are JPG/JPEG, PNG and WEBP.
+- Profile email is read-only. Password changes and email changes are not included in this feature.
+- The full application still needs to be tested on the user's own machine and MySQL configuration.

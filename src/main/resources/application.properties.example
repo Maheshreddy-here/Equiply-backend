@@ -1,0 +1,20 @@
+spring.application.name=equiply
+
+spring.datasource.url=${DB_URL:jdbc:mysql://localhost:3307/equiply_db}
+spring.datasource.username=${DB_USERNAME:root}
+spring.datasource.password=${DB_PASSWORD}
+
+spring.jpa.hibernate.ddl-auto=update
+
+# Equiply example configuration
+# Replace placeholders with environment variables or local values.
+
+spring.application.name=equiply
+
+spring.datasource.url=${DB_URL:jdbc:mysql://localhost:3307/equiply_db}
+spring.datasource.username=${DB_USERNAME:root}
+spring.datasource.password=${DB_PASSWORD}
+
+spring.jpa.hibernate.ddl-auto=update
+
+# Configure email settings using environment variables if required.

@@ -1,0 +1,30 @@
+EQUIPLY - BORROW / RETURN SETUP
+
+1. Open src/main/resources/application.properties.
+2. Replace YOUR_MYSQL_PASSWORD with the password for your local MySQL root user. Your project uses MySQL port 3307 and database equiply_db.
+3. Start the project from the equiply folder:
+   mvn spring-boot:run
+4. Open http://localhost:8080/signup and create/login with your existing account.
+5. Open http://localhost:8080/dashboard.
+
+WHAT WAS ADDED
+- Equipment entity and MySQL equipment table.
+- BorrowLog entity and MySQL borrow_logs table.
+- Automatic sample equipment on first run.
+- Borrow endpoint: POST /equipment/{id}/borrow.
+- Return endpoint: POST /equipment/{id}/return.
+- Seven-day due date on borrow.
+- Current borrower stored in equipment.current_holder_id.
+- Borrow and return history stored in borrow_logs.
+- Database row locking prevents two users from borrowing the same item at the same time.
+- Dashboard now reads live equipment data from MySQL.
+- Only the current borrower can return an item.
+
+MYSQL CHECKS
+USE equiply_db;
+SELECT * FROM equipment;
+SELECT * FROM borrow_logs;
+SELECT * FROM users;
+
+IMPORTANT
+The delivered project intentionally does not contain your MySQL password. Put it back in application.properties before running.

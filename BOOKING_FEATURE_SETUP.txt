@@ -1,0 +1,30 @@
+EQUIPLY RENTAL BOOKING FEATURE
+
+WHAT'S ADDED
+- Customers can request to rent a listed item by selecting start and end dates.
+- Requests are saved in the MySQL rental_bookings table.
+- Requests start as PENDING.
+- The item owner can APPROVE or REJECT pending requests from the dashboard.
+- The backend validates dates, prevents customers requesting their own item, checks ownership for approval/rejection, and blocks overlapping APPROVED date ranges.
+- Dashboard shows the current customer's requests and requests awaiting the current customer's decision.
+
+INSTALL
+1. Keep a backup of your current project and database.
+2. Extract this ZIP into a new folder and open the inner equiply folder in VS Code.
+3. Confirm src/main/resources/application.properties has your actual MySQL password and correct port.
+4. Run src/main/java/com/equiply/EquiplyApplication.java.
+5. Hibernate's ddl-auto=update should create the rental_bookings table automatically.
+6. Open http://localhost:8080 and log in.
+
+HOW TO TEST
+1. Register or log in as Customer A.
+2. Use List equipment to create a listing. Its owner is the account that created it.
+3. Log out, then register/log in as Customer B.
+4. Find Customer A's listing, choose start/end dates, and click Request to Rent.
+5. Log out and sign back in as Customer A. Under Rental Requests for Your Items, click Approve or Reject.
+6. Log back in as Customer B and verify the status under My Rental Requests.
+
+NOTES
+- The old demo seed items may have no owner assigned. Those items cannot receive owner-approved booking requests. Create a new listing under a signed-in customer account to test the full workflow.
+- This feature records booking requests and owner decisions. It does not yet process payments, deposits, pickup, or return for date-based bookings.
+- Maven was not installed in the build environment, so this ZIP was integrity-checked but not Maven-compiled here. If your IDE shows a Java error, share the exact message so it can be corrected.

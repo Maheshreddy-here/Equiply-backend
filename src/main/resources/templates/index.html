@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102a24">
+    <meta name="description" content="Equiply helps students and local communities discover, rent, and share useful equipment. Share what you own and find what you need.">
+    <title>Equiply | Useful things, shared smarter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #15231f;
+            --muted: #687872;
+            --green: #177653;
+            --green-dark: #10563c;
+            --mint: #dff4e9;
+            --paper: #f8faf8;
+            --line: #e3eae5;
+            --white: #ffffff;
+            --shadow: 0 24px 70px rgba(21, 55, 40, .12);
+            --radius: 22px;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--paper); line-height: 1.6; }
+        a { color: inherit; text-decoration: none; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        .container { width: min(1160px, calc(100% - 44px)); margin: 0 auto; }
+        .site-header { position: sticky; top: 0; z-index: 20; background: rgba(248,250,248,.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(227,234,229,.9); }
+        .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+        .brand { display: inline-flex; align-items: center; gap: 11px; font-family: 'Manrope', sans-serif; font-size: 25px; font-weight: 800; letter-spacing: -1.2px; }
+        .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; color: white; background: var(--green); font-size: 20px; box-shadow: 0 7px 18px #1776532b; }
+        .nav-links { display: flex; align-items: center; gap: 29px; color: #52635b; font-size: 14px; font-weight: 600; }
+        .nav-links a:hover, .text-link:hover { color: var(--green); }
+        .nav-actions { display: flex; align-items: center; gap: 10px; }
+        .btn { display: inline-flex; justify-content: center; align-items: center; gap: 9px; min-height: 46px; padding: 12px 19px; border: 1px solid transparent; border-radius: 12px; font: 700 14px 'DM Sans', sans-serif; cursor: pointer; transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary { background: var(--green); color: white; box-shadow: 0 8px 20px #17765324; }
+        .btn-primary:hover { background: var(--green-dark); }
+        .btn-outline { background: white; border-color: var(--line); color: var(--ink); }
+        .btn-outline:hover { border-color: #b9d6c7; background: #fbfffc; }
+        .hero { position: relative; overflow: hidden; padding: 76px 0 82px; background: radial-gradient(ellipse at 85% 18%, #e1f3e8 0, transparent 32%), linear-gradient(180deg, #fbfdfb, #f6faf7); }
+        .hero-grid { display: grid; grid-template-columns: 1fr .94fr; align-items: center; gap: 64px; }
+        .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; padding: 7px 12px; border: 1px solid #cfe8d9; border-radius: 999px; background: #eff9f2; color: var(--green-dark); font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+        .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: #2da66f; box-shadow: 0 0 0 4px #2da66f20; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { max-width: 650px; margin-bottom: 22px; font-family: 'Manrope', sans-serif; font-size: clamp(43px, 5.2vw, 68px); font-weight: 800; line-height: 1.07; letter-spacing: -3.5px; }
+        h1 span { color: var(--green); }
+        .hero-copy { max-width: 540px; margin-bottom: 29px; color: var(--muted); font-size: 17px; line-height: 1.85; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 27px; }
+        .hero-note { display: flex; align-items: center; gap: 10px; color: #65756c; font-size: 13px; }
+        .note-check { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #e1f4e9; color: var(--green); font-size: 12px; font-weight: 900; }
+        .hero-visual { position: relative; min-height: 450px; }
+        .hero-photo { position: absolute; inset: 14px 16px 28px 44px; width: calc(100% - 60px); height: calc(100% - 42px); object-fit: cover; border-radius: 30px; box-shadow: var(--shadow); }
+        .photo-shade { position: absolute; inset: 14px 16px 28px 44px; border-radius: 30px; background: linear-gradient(180deg, transparent 48%, rgba(8,33,24,.42)); pointer-events: none; }
+        .image-label { position: absolute; left: 68px; bottom: 53px; color: white; text-shadow: 0 1px 8px #0004; }
+        .image-label strong { display: block; font: 800 20px 'Manrope', sans-serif; }
+        .image-label span { font-size: 13px; opacity: .9; }
+        .floating-card { position: absolute; left: 0; top: 55px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid #e7eee8; border-radius: 17px; background: white; box-shadow: 0 14px 36px #153a2920; }
+        .floating-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: var(--mint); font-size: 21px; }
+        .floating-card strong { display: block; font-size: 13px; }
+        .floating-card small { display: block; color: var(--muted); font-size: 11px; }
+        .mini-stat { position: absolute; right: 0; top: 73%; padding: 13px 16px; border: 1px solid #e5ece6; border-radius: 16px; background: white; box-shadow: 0 14px 36px #153a291b; }
+        .mini-stat strong { display: block; color: var(--green); font: 800 19px 'Manrope', sans-serif; }
+        .mini-stat span { color: var(--muted); font-size: 11px; }
+        .trust-strip { background: white; border-block: 1px solid var(--line); }
+        .trust-inner { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; padding: 23px 0; }
+        .trust-item { display: flex; justify-content: center; align-items: center; gap: 12px; color: #53645b; font-size: 13px; font-weight: 600; }
+        .trust-icon { display: grid; place-items: center; width: 37px; height: 37px; flex: 0 0 auto; border-radius: 12px; background: #edf7f0; font-size: 18px; }
+        .section { padding: 78px 0; }
+        .section-head { display: flex; align-items: end; justify-content: space-between; gap: 25px; margin-bottom: 32px; }
+        .kicker { margin-bottom: 9px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; }
+        h2 { margin-bottom: 0; font: 800 clamp(29px, 3.5vw, 42px)/1.2 'Manrope', sans-serif; letter-spacing: -1.7px; }
+        .section-sub { max-width: 500px; margin: 12px 0 0; color: var(--muted); font-size: 15px; }
+        .text-link { color: var(--green); font-size: 14px; font-weight: 800; white-space: nowrap; }
+        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .category-card { min-height: 195px; padding: 23px; border: 1px solid var(--line); border-radius: 19px; background: white; transition: transform .2s, box-shadow .2s, border-color .2s; }
+        .category-card:hover { transform: translateY(-4px); border-color: #cce4d5; box-shadow: 0 16px 35px #173a2810; }
+        .category-icon { display: grid; place-items: center; width: 49px; height: 49px; margin-bottom: 19px; border-radius: 15px; background: #edf7f0; font-size: 24px; }
+        .category-card h3 { margin-bottom: 6px; font: 800 16px 'Manrope', sans-serif; }
+        .category-card p { margin-bottom: 0; color: var(--muted); font-size: 13px; }
+        .how-section { background: #edf6f0; border-block: 1px solid #e0ece3; }
+        .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 34px; }
+        .step-card { padding: 27px; border: 1px solid #e0ebe3; border-radius: 20px; background: white; }
+        .step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 23px; }
+        .step-number { display: grid; place-items: center; width: 39px; height: 39px; border-radius: 13px; background: var(--green); color: white; font: 800 15px 'Manrope', sans-serif; }
+        .step-emoji { font-size: 25px; }
+        .step-card h3 { margin-bottom: 8px; font: 800 18px 'Manrope', sans-serif; }
+        .step-card p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
+        .owner-section { padding: 76px 0; }
+        .owner-panel { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 42px; padding: 42px; border: 1px solid #dce9df; border-radius: 26px; background: white; box-shadow: 0 16px 50px #153a2908; }
+        .owner-panel h2 { font-size: clamp(28px, 3vw, 37px); }
+        .owner-panel p { margin: 14px 0 23px; color: var(--muted); font-size: 15px; }
+        .owner-points { display: grid; gap: 13px; }
+        .owner-point { display: flex; align-items: center; gap: 11px; font-size: 14px; font-weight: 600; }
+        .owner-point span { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #e5f5eb; color: var(--green); font-size: 12px; }
+        .owner-art { min-height: 250px; border-radius: 20px; background: linear-gradient(145deg, #e5f5eb, #f5faf6); display: grid; place-items: center; overflow: hidden; position: relative; }
+        .owner-art:before, .owner-art:after { content: ''; position: absolute; border: 1px solid #b8ddc7; border-radius: 50%; }
+        .owner-art:before { width: 270px; height: 270px; }
+        .owner-art:after { width: 200px; height: 200px; }
+        .owner-art-emoji { z-index: 1; font-size: 94px; filter: drop-shadow(0 15px 13px #174e3420); }
+        .cta { padding: 0 0 76px; }
+        .cta-box { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 28px; overflow: hidden; padding: 43px 46px; border-radius: 25px; background: #123e2d; color: white; }
+        .cta-box:after { content: ''; position: absolute; right: 170px; top: -150px; width: 310px; height: 310px; border: 1px solid #ffffff20; border-radius: 50%; }
+        .cta-box h2 { max-width: 600px; margin-bottom: 10px; font-size: clamp(27px, 3vw, 37px); }
+        .cta-box p { margin-bottom: 0; color: #d1e4d8; font-size: 14px; }
+        .cta-box .btn { position: relative; z-index: 1; flex-shrink: 0; background: white; color: var(--green-dark); }
+        footer { border-top: 1px solid var(--line); background: white; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 25px 0; color: var(--muted); font-size: 12px; }
+        .footer-brand { color: var(--ink); font-size: 20px; }
+        .footer-note { text-align: right; }
+        @media (max-width: 920px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 25px; }
+            .hero { padding-top: 58px; }
+            .hero-visual { width: min(590px,100%); margin: 0 auto; min-height: 410px; }
+            .hero-photo, .photo-shade { inset-left: 35px; }
+            .category-grid { grid-template-columns: repeat(2,1fr); }
+            .nav-links { gap: 17px; }
+            .owner-panel { gap: 25px; padding: 30px; }
+        }
+        @media (max-width: 650px) {
+            .container { width: calc(100% - 30px); }
+            .nav { min-height: 70px; gap: 10px; }
+            .brand { font-size: 22px; }
+            .nav-links { display: none; }
+            .nav-actions { gap: 7px; }
+            .nav-actions .btn { min-height: 40px; padding: 9px 11px; font-size: 12px; }
+            .hero { padding: 46px 0 49px; }
+            h1 { font-size: clamp(41px, 12vw, 56px); letter-spacing: -2.5px; }
+            .hero-copy { font-size: 15px; }
+            .hero-visual { min-height: 325px; }
+            .hero-photo, .photo-shade { inset: 16px 5px 20px 30px; width: calc(100% - 35px); height: calc(100% - 36px); }
+            .image-label { left: 48px; bottom: 40px; }
+            .image-label strong { font-size: 17px; }
+            .floating-card { top: 32px; padding: 10px; }
+            .floating-icon { width: 35px; height: 35px; }
+            .mini-stat { top: 73%; padding: 10px 12px; }
+            .trust-inner { grid-template-columns: 1fr; gap: 12px; padding: 19px 0; }
+            .trust-item { justify-content: flex-start; }
+            .section { padding: 55px 0; }
+            .section-head { align-items: flex-start; flex-direction: column; }
+            .category-grid { gap: 10px; }
+            .category-card { min-height: 180px; padding: 16px; }
+            .category-icon { width: 43px; height: 43px; margin-bottom: 14px; }
+            .steps-grid { grid-template-columns: 1fr; gap: 12px; }
+            .step-card { padding: 22px; }
+            .owner-panel { grid-template-columns: 1fr; padding: 23px; }
+            .owner-art { min-height: 200px; }
+            .cta { padding-bottom: 55px; }
+            .cta-box { align-items: flex-start; flex-direction: column; padding: 30px 24px; }
+            .cta-box:after { right: -100px; }
+            .footer-inner { align-items: flex-start; flex-direction: column; }
+            .footer-note { text-align: left; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *:before, *:after { transition: none !important; } }
+    </style>
+</head>
+<body>
+<header class="site-header">
+    <div class="container nav">
+        <a class="brand" th:href="@{/}" href="/" aria-label="Equiply home"><span class="brand-mark">e</span><span>equiply</span></a>
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="#categories">Explore</a>
+            <a href="#how-it-works">How it works</a>
+            <a th:href="@{/dashboard}" href="/dashboard">Dashboard</a>
+        </nav>
+        <div class="nav-actions">
+            <a class="btn btn-outline" th:href="@{/login}" href="/login">Log in</a>
+            <a class="btn btn-primary" th:href="@{/signup}" href="/signup">Get started <span aria-hidden="true">↗</span></a>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="eyebrow"><span class="eyebrow-dot"></span> A smarter way to share</div>
+                <h1>Get what you need.<br><span>Share what you have.</span></h1>
+                <p class="hero-copy">Why buy something you only need for a while? Discover useful equipment from your community, rent it when you need it, and earn from the things you already own.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" th:href="@{/dashboard}" href="/dashboard">Explore equipment <span aria-hidden="true">→</span></a>
+                    <a class="btn btn-outline" th:href="@{/signup}" href="/signup">Start sharing <span aria-hidden="true">↗</span></a>
+                </div>
+                <div class="hero-note"><span class="note-check">✓</span> One account to rent items and list your own</div>
+            </div>
+            <div class="hero-visual" aria-label="Equipment ready to be shared">
+                <img class="hero-photo" src="https://images.unsplash.com/photo-1581147036324-c1c89c2c8b5c?auto=format&fit=crop&w=1200&q=85" alt="Tools and equipment arranged for a project" fetchpriority="high">
+                <div class="photo-shade"></div>
+                <div class="image-label"><strong>Make more possible.</strong><span>One useful item at a time.</span></div>
+                <div class="floating-card"><div class="floating-icon">♻️</div><div><strong>Use more. Waste less.</strong><small>Sharing starts in your community</small></div></div>
+                <div class="mini-stat"><strong>Rent · Share · Earn</strong><span>A simple circular way to use things</span></div>
+            </div>
+        </div>
+    </section>
+    <section class="trust-strip" aria-label="Equiply benefits">
+        <div class="container trust-inner">
+            <div class="trust-item"><span class="trust-icon">🔎</span><span>Find equipment for your next task</span></div>
+            <div class="trust-item"><span class="trust-icon">💸</span><span>Earn from items you already own</span></div>
+            <div class="trust-item"><span class="trust-icon">🤝</span><span>One account, both ways to share</span></div>
+        </div>
+    </section>
+    <section class="section" id="categories">
+        <div class="container">
+            <div class="section-head">
+                <div><div class="kicker">Explore possibilities</div><h2>Useful things for every kind of project.</h2><p class="section-sub">From study essentials to creative gear, find equipment for the moments when you need it.</p></div>
+                <a class="text-link" th:href="@{/dashboard}" href="/dashboard">Browse equipment <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="category-grid">
+                <article class="category-card"><div class="category-icon">📚</div><h3>Study & academic</h3><p>Calculators, books and learning essentials.</p></article>
+                <article class="category-card"><div class="category-icon">📷</div><h3>Photo & video</h3><p>Cameras and gear for creative projects.</p></article>
+                <article class="category-card"><div class="category-icon">🛠️</div><h3>Tools & DIY</h3><p>Build, fix and make something new.</p></article>
+                <article class="category-card"><div class="category-icon">⚽</div><h3>Sports & outdoors</h3><p>Equipment for games, trips and events.</p></article>
+            </div>
+        </div>
+    </section>
+    <section class="section how-section" id="how-it-works">
+        <div class="container">
+            <div class="kicker">Easy from the start</div>
+            <h2>Sharing, in three simple steps.</h2>
+            <p class="section-sub">Equiply makes it easier to discover equipment, request a rental, and manage the things you share.</p>
+            <div class="steps-grid">
+                <article class="step-card"><div class="step-top"><span class="step-number">01</span><span class="step-emoji">🔍</span></div><h3>Find what you need</h3><p>Explore listings from people in your community and check the rental details before you request an item.</p></article>
+                <article class="step-card"><div class="step-top"><span class="step-number">02</span><span class="step-emoji">📅</span></div><h3>Request your dates</h3><p>Choose the period you need and keep your rental request organised in one place.</p></article>
+                <article class="step-card"><div class="step-top"><span class="step-number">03</span><span class="step-emoji">🔁</span></div><h3>Return and share again</h3><p>Keep track of your rental and return the equipment so it can be useful to someone else.</p></article>
+            </div>
+        </div>
+    </section>
+    <section class="owner-section">
+        <div class="container owner-panel">
+            <div>
+                <div class="kicker">Your things can do more</div>
+                <h2>Turn unused equipment into extra income.</h2>
+                <p>Have a calculator, camera, tool or sports item sitting unused? List it on Equiply, review the suggested rent and deposit, and choose the prices that work for you.</p>
+                <div class="owner-points">
+                    <div class="owner-point"><span>✓</span> AI-assisted rent and deposit suggestions</div>
+                    <div class="owner-point"><span>✓</span> You stay in control of your final prices</div>
+                    <div class="owner-point"><span>✓</span> Use the same account to rent and share</div>
+                </div>
+                <div style="margin-top:25px"><a class="btn btn-primary" th:href="@{/signup}" href="/signup">List your equipment <span aria-hidden="true">→</span></a></div>
+            </div>
+            <div class="owner-art" aria-label="Equipment sharing illustration"><div class="owner-art-emoji">📦</div></div>
+        </div>
+    </section>
+    <section class="cta">
+        <div class="container">
+            <div class="cta-box"><div><h2>Need something for your next big idea?</h2><p>Join Equiply and make better use of the equipment around you.</p></div><a class="btn" th:href="@{/signup}" href="/signup">Create your account <span aria-hidden="true">→</span></a></div>
+        </div>
+    </section>
+</main>
+<footer>
+    <div class="container footer-inner">
+        <a class="brand footer-brand" th:href="@{/}" href="/"><span class="brand-mark">e</span><span>equiply</span></a>
+        <span>Useful things, shared smarter.</span>
+        <span class="footer-note">© <span id="year">2026</span> Equiply. Built for sharing.</span>
+    </div>
+</footer>
+<script>
+    const yearElement = document.getElementById('year');
+    if (yearElement) yearElement.textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

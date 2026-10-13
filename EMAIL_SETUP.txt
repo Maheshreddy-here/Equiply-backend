@@ -1,0 +1,22 @@
+EQUIPLY EMAIL VERIFICATION SETUP (Gmail SMTP example)
+
+Email verification is implemented with a one-time link that expires after 24 hours. New accounts cannot log in until the email is verified. Existing accounts remain verified when the database is upgraded.
+
+For Gmail:
+1. Enable 2-Step Verification on the Google account you will use to send Equiply emails.
+2. Create a Google App Password (do not use your normal Gmail password).
+3. In Windows PowerShell, set these environment variables before starting Equiply:
+
+   $env:EQUIPLY_EMAIL_ENABLED="true"
+   $env:MAIL_HOST="smtp.gmail.com"
+   $env:MAIL_PORT="587"
+   $env:MAIL_USERNAME="your-sending-address@gmail.com"
+   $env:MAIL_PASSWORD="your-16-character-app-password"
+   $env:EQUIPLY_BASE_URL="http://localhost:8080"
+   .\mvnw.cmd spring-boot:run
+
+Use the sender email address for MAIL_USERNAME. Never commit your app password into application.properties or share screenshots containing it. These PowerShell variables last only for the current terminal window. For a deployed website, set EQUIPLY_BASE_URL to the real HTTPS website address.
+
+If email is not configured, signup can save the account but it cannot send a verification message and that new account cannot log in. Configure SMTP before testing signup. Existing accounts are not locked out by this feature.
+
+Profile cartoons: open My profile, select one of the avatar choices, and click Save profile changes. The selected avatar is shown beside the student's name on the dashboard.

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#177653"><title>Log in | Equiply</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--green:#177653;--green-dark:#10563c;--ink:#172720;--muted:#6b7a72;--line:#e1e9e3;--paper:#f6faf7;--mint:#e4f4e9;--white:#fff}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 12% 12%,#e1f3e8 0,transparent 28%),radial-gradient(circle at 90% 90%,#eaf4ee 0,transparent 28%),var(--paper);font-family:'DM Sans',sans-serif;color:var(--ink);display:grid;grid-template-rows:auto 1fr}
+    a{color:inherit;text-decoration:none}.topbar{height:82px;display:flex;align-items:center;justify-content:space-between;width:min(1160px,calc(100% - 44px));margin:auto}.brand{display:inline-flex;align-items:center;gap:10px;font:800 25px 'Manrope',sans-serif;letter-spacing:-1px}.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--green);color:white;box-shadow:0 7px 18px #1776532b}.back{font-size:14px;font-weight:700;color:var(--muted)}.back:hover{color:var(--green)}
+    main{display:grid;place-items:center;padding:32px 18px 58px}.auth-layout{width:min(960px,100%);display:grid;grid-template-columns:1fr .9fr;background:#fff;border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 28px 80px #153a2914;min-height:510px}.visual{position:relative;overflow:hidden;padding:48px;background:linear-gradient(145deg,#10563c,#177653 55%,#4e9b70);color:white;display:flex;flex-direction:column;justify-content:space-between}.visual:before,.visual:after{content:'';position:absolute;border:1px solid #ffffff24;border-radius:50%;width:340px;height:340px;right:-140px;top:-90px}.visual:after{width:250px;height:250px;right:-85px;top:auto;bottom:-110px}.visual>*{position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;color:#e0f5e8}.eyebrow span{width:7px;height:7px;border-radius:50%;background:#a7e8bd}.visual h1{font:800 clamp(30px,3.3vw,42px)/1.15 'Manrope',sans-serif;letter-spacing:-1.5px;margin:25px 0 15px}.visual p{max-width:340px;color:#d9eee0;line-height:1.8;font-size:15px}.visual-foot{display:flex;align-items:center;gap:12px;color:#e2f3e8;font-size:13px}.foot-icon{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:#ffffff1c;font-size:18px}
+    .form-side{padding:48px 44px;display:flex;flex-direction:column;justify-content:center}.form-side h2{font:800 29px 'Manrope',sans-serif;letter-spacing:-1px;margin:0 0 8px}.sub{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 27px}.alert{padding:12px 14px;border-radius:11px;font-size:13px;font-weight:600;margin-bottom:17px}.error{background:#fff0ef;color:#a3312b;border:1px solid #ffd9d5}.logout{background:#edf9f0;color:#1d6a3c;border:1px solid #d2ebd9}
+    .field{margin-bottom:18px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:8px;color:#30443a}.field input{width:100%;height:48px;padding:0 14px;border:1px solid #d6e1d9;border-radius:11px;font:inherit;color:var(--ink);outline:none;background:#fcfdfc;transition:border .15s,box-shadow .15s}.field input:focus{border-color:#6aaa86;box-shadow:0 0 0 4px #17765316;background:white}.field input::placeholder{color:#9aa69f}.submit{width:100%;height:49px;border:0;border-radius:11px;background:var(--green);color:white;font:700 14px 'DM Sans',sans-serif;cursor:pointer;box-shadow:0 8px 18px #17765324;transition:background .15s,transform .15s}.submit:hover{background:var(--green-dark);transform:translateY(-1px)}.switch{margin:23px 0 0;text-align:center;color:var(--muted);font-size:13px}.switch a{color:var(--green);font-weight:800}.switch a:hover{text-decoration:underline}.privacy{margin-top:20px;text-align:center;color:#8b9890;font-size:11px}
+    @media(max-width:760px){.auth-layout{grid-template-columns:1fr;max-width:480px}.visual{padding:27px 30px;min-height:205px}.visual h1{font-size:29px;margin:14px 0 8px}.visual p{font-size:13px;margin-bottom:18px}.visual-foot{display:none}.form-side{padding:34px 28px}.topbar{height:72px}.brand{font-size:22px}}
+  </style>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="/" aria-label="Equiply home"><span class="brand-mark">e</span><span>equiply</span></a><a class="back" href="/">← Back to home</a></header>
+<main><div class="auth-layout">
+  <aside class="visual"><div><div class="eyebrow"><span></span> A smarter way to share</div><h1>Welcome back to a community that shares.</h1><p>Find the equipment you need, manage your rentals, and keep your useful things in circulation.</p></div><div class="visual-foot"><span class="foot-icon">✓</span><span>One account. Rent items or list your own.</span></div></aside>
+  <section class="form-side"><h2>Log in to Equiply</h2><p class="sub">Enter your account details to continue.</p>
+    <div class="alert success" th:if="${verified}" th:text="${verified}"></div><div class="alert error" th:if="${param.error}">Invalid email or password. If you just signed up, verify your email first. Please try again.</div>
+    <div class="alert logout" th:if="${param.logout}">You have been logged out successfully.</div>
+    <form method="post" th:action="@{/login}">
+      <div class="field"><label for="username">Email address</label><input type="email" id="username" name="username" placeholder="you@example.com" autocomplete="username" required></div>
+      <div class="field"><label for="password">Password</label><input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required></div>
+      <button class="submit" type="submit">Log in <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="switch">New to Equiply? <a href="/signup">Create an account</a></p><p class="privacy">Your account keeps your rentals and listings in one place.</p>
+  </section>
+</div></main></body></html>

@@ -1,0 +1,13 @@
+EQUIPLY SINGLE-ACCOUNT MODEL
+
+All customers create one account. There is no separate lender or borrower selection
+during sign-up. A signed-in customer can both rent equipment and list their own items.
+
+Implementation:
+- signup.html no longer asks for an account type.
+- AuthController assigns the common USER role to new registrations.
+- Equipment ownership is tracked per listing, so the same user can own one listing
+  and rent another item without changing account types.
+
+Existing database users and existing role values are not deleted or migrated by this
+change. New accounts receive USER automatically.

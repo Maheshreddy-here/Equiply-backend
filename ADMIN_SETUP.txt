@@ -1,0 +1,35 @@
+EQUIPLY ADMIN SETUP (Windows PowerShell)
+========================================
+
+SECURITY DESIGN
+- Public signup always assigns role USER. Signup does not accept a role field.
+- Admin URLs under /admin/** require ROLE_ADMIN.
+- Create the first Admin through environment variables at startup; do not put admin credentials in source code or application.properties.
+- The initial-admin bootstrap creates an account only if the configured email does not already exist. If that email belongs to an ordinary account, it will NOT silently promote it.
+- Admin password must be at least 12 characters.
+
+CREATE THE FIRST ADMIN
+1. Open the project folder in VS Code.
+2. Open Terminal > New Terminal (PowerShell).
+3. Set these variables in that terminal, replacing the example values. Use a strong unique password of 12+ characters:
+
+   $env:EQUIPLY_ADMIN_EMAIL="admin@example.com"
+   $env:EQUIPLY_ADMIN_PASSWORD="Use-A-Strong-Unique-Password-Here"
+   $env:EQUIPLY_ADMIN_NAME="Equiply Administrator"
+
+4. Make sure src/main/resources/application.properties has the real MySQL password and correct port.
+5. Run:
+
+   .\mvnw.cmd spring-boot:run
+
+6. After startup, sign in at http://localhost:8080/login with the admin email and password. The bootstrap-created admin is email-verified because this is a controlled setup account.
+7. Open http://localhost:8080/admin. Only admins can access this URL.
+
+IMPORTANT
+- These environment variables apply only to the current PowerShell terminal. If the admin is created successfully in MySQL, you do not need them on later runs; clear them with Remove-Item Env:EQUIPLY_ADMIN_PASSWORD, Remove-Item Env:EQUIPLY_ADMIN_EMAIL, Remove-Item Env:EQUIPLY_ADMIN_NAME.
+- Do not use a student account email as EQUIPLY_ADMIN_EMAIL unless you deliberately want to use a fresh admin address. Existing student accounts are never automatically promoted.
+- If you lose the admin password, reset it through a controlled database/admin maintenance process; do not add public admin signup.
+- CSRF protection remains enabled. Standard Thymeleaf POST forms should include the Spring Security CSRF token.
+- Admin can see student account status, suspend/reactivate student accounts, review/remove listings, view registered college names, monitor bookings, and print/save the booking report.
+- Student addresses and exact pickup coordinates are not shown in the admin tables by this page; handle personal data carefully.
+- Admin listing deletion may be blocked by database foreign-key history if a listing has booking records. Review history before deleting such a listing.

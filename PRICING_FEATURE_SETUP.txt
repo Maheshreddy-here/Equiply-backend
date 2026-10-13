@@ -1,0 +1,26 @@
+EQUIPLY - OWNER-CONTROLLED PRICING SUGGESTIONS
+
+What was added
+- New listing form at /equipment/new.
+- The owner enters the equipment name, category, estimated replacement value and condition.
+- PricingRecommendationService suggests a daily rent and a deposit.
+- The owner may accept the suggestion or enter their own rent/deposit.
+- The dashboard shows the current rent/deposit and the suggested values.
+- Only the owner of a listing may update that listing's prices.
+- New database fields are created by spring.jpa.hibernate.ddl-auto=update.
+
+Important pricing note
+This is a transparent, rule-based first version, not a connected external AI model and not a live-market valuation. The formula uses estimated value, category and condition. Before charging real users, compare local listings and test/adjust the formula. An actual AI API can be connected in a later step using a server-side API key stored in environment variables, never in HTML or JavaScript sent to the browser.
+
+Run
+1. Open the project in IntelliJ IDEA or VS Code.
+2. Confirm MySQL is running and that src/main/resources/application.properties has the correct database port, database name, username and password.
+3. Do not replace your real MySQL password with the placeholder YOUR_MYSQL_PASSWORD; edit that property locally if needed.
+4. Run EquiplyApplication.java.
+5. Open http://localhost:8080 and log in.
+6. From the dashboard, click "List equipment".
+7. Enter an item value and condition. Leave rent/deposit blank to use the suggestions, or enter your own values.
+8. Publish the listing. On the dashboard, the listing owner can edit both prices and click "Save my prices".
+
+Database
+The existing database name is equiply_db. Hibernate update mode adds the new columns to the equipment table automatically on application startup. Back up your database before updating an existing project.
